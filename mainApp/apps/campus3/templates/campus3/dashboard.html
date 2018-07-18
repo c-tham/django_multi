@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 3 (UserDashboard)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">
+                <h2>College Compus Service 3 - User Dashboard</h2>
+            </a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-danger" href="/campus3/hack/{{currentID}}" role="button">HACK</a>
+            <a class="btn btn-outline-dark" href="/campus3/logout" role="button">Logout</a>
+        </p>
+
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div class="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+    <!-- User Menu -->
+    <div class="main">
+        <div>
+            <h5>Welcome {{personInfo.firstName}} ({{personInfo.collegeEmail}})!</h5>
+        </div>
+        <br>
+        <fieldset>
+            <h3>User Summary:</h3>
+            <table class="table-striped table-sm w-100">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <strong>Item</strong>
+                        </th>
+                        <th scope="col">
+                            <Strong>Description</Strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for all in allPersons %}
+                    <!-- No -->
+                    <tr>
+                        <td scope="col">
+                            <strong>No</strong>
+                        </td>
+                        <td>{{all.id}}</td>
+                    </tr>
+                    <!-- Campus ID -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Campus ID</strong>
+                        </td>
+                        <td>{{all.campusID}}</td>
+                    </tr>
+                    <!-- Name -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Name</strong>
+                        </td>
+                        <td class="text-capitalize">{{all.firstName}} {{all.lastName}}</td>
+                    </tr>
+                    <!-- Date of Birth -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Date of Birth</strong>
+                        </td>
+                        <td>{{all.dateBirth|date:"l M d, Y"}} ({{age}} years old)</td>
+                    </tr>
+                    <!-- College Email Address -->
+                    <tr>
+                        <td scope="col">
+                            <strong>College Email Address</strong>
+                        </td>
+                        <td class="text-lowercase">{{all.collegeEmail}}</td>
+                    </tr>
+                    <!-- Phone Number -->
+                    <form action="/campus3/updatePhone/{{all.id}}" method="post">
+                        {% csrf_token %}
+                        <tr>
+                            <td scope="col">
+                                <strong>Phone</strong>
+                            </td>
+                            <td>
+                                <input class="form-control-sm" type='text' name='inputUpdatePhone' value={{all.phone}}>
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </td>
+                        </tr>
+                    </form>
+                    <!-- Office Extension Number -->
+                    <form action="/campus3/updateExtNum/{{all.id}}" method="post">
+                        {% csrf_token %}
+                        <tr>
+                            <td scope="col">
+                                <strong>Office Extension Number</strong>
+                            </td>
+                            <td>
+                                <input class="form-control-sm" type='text' name='inputUpdateExtNum' value={{all.extNum}}>
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </td>
+                        </tr>
+                    </form>
+                    <!--  Person Email Address -->
+                    <form action="/campus3/updatePersonEmail/{{all.id}}" method="post">
+                        {% csrf_token %}
+                        <tr>
+                            <td scope="col">
+                                <strong>Personal Email Address</strong>
+                            </td>
+                            <td>
+                                <input class="form-control-sm" type='text' name='inputUpdatePersonEmail' value={{all.personEmail}}>
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </td>
+                        </tr>
+                    </form>
+                    <!-- Group -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Group</strong>
+                        </td>
+                        <td>
+                            <table class="table-sm w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Group Type</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for allType in all.personGroupID.all %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{allType.userType_ID.nameType|title}}</td>
+                                        <td>
+                                            {% if forloop.counter0 == 0 %} Default {% else %} Valid {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Meal Plans  -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Meal Plans</strong>
+                        </td>
+                        <td>
+                            {% if allMealCards %}
+                            <table class="table-sm w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Meal Plan</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for allMeal in allMealPlans %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{allMeal.ID_mealType.CardType}} (${{allMeal.ID_mealType.CardAmt|floatformat:2}})</td>
+                                        <td>Valid</td>
+                                        <td>
+                                            <a class="btn btn-danger btn-sm" href="/campus3/deleteMeal/{{all.id}}/{{allMeal.id}}" role="button">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td>Total Amount is ${{amt|floatformat:2}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <form action="/campus3/addMeal/{{all.id}}" method="post" class="form-inline">
+                                            {% csrf_token %}
+                                            <td>#</td>
+                                            <td>
+                                                <select name="inputMealCard">
+                                                    <option class="dropdown-item" value="0" selected>&nbsp;</option>
+                                                    {% for all in allMealCards %}
+                                                    <option class="dropdown-item" value={{all.id}}>&nbsp;{{all.CardType|title}} (${{all.CardAmt|floatformat:2}})&nbsp;</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                            <td>New</td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <!--  Building -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Building</strong>
+                        </td>
+                        <td>
+                            <table class="table-sm w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Building Name</th>
+                                        <th scope="col">Office Room No</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for allBuild in allBuilding%}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{allBuild.buildingName|title}}</td>
+                                        <td>{{allBuild.officeRoom}}</td>
+                                        <td>
+                                            {% if forloop.counter0 == 0 %} Default {% else %} Valid {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Parking Permit  -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Parking Permit</strong>
+                        </td>
+                        <td>
+                            <table class="table-sm w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Vehicle Plate No</th>
+                                        <th scope="col">Parking Permit No</th>
+                                        <th scope="col">Expiration Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for allCar in allParking %}
+                                    <tr>
+                                        {% if allCar.dateExpiry > tomorrow %}
+                                        <span class="text-success">
+                                            <td>{{forloop.counter}}</td>
+                                            <td>
+                                                <span class="text-uppercase ">{{allCar.plateNo|upper}}</span>
+                                            </td>
+                                            <td>{{allCar.permitNo}}</td>
+                                            <td>
+                                                <span class="text-success">{{allCar.dateExpiry}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-success">Valid</span>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="/campus3/deleteParking/{{all.id}}/{{allCar.id}}" role="button">Delete</a>
+                                            </td>
+                                        </span> {% else %}
+                                        <span class="text-danger">
+                                            <td>{{forloop.counter}}</td>
+                                            <td>
+                                                <span class="text-uppercase ">{{allCar.plateNo|upper}}</span>
+                                            </td>
+                                            <td>{{allCar.permitNo}}</td>
+                                            <td>
+                                                <span class="text-danger">{{allCar.dateExpiry}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-danger">Expired</span>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="/campus3/deleteParking/{{all.id}}/{{allCar.id}}" role="button">Delete</a>
+                                            </td>
+                                        </span>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <form action="/campus3/addParking/{{all.id}}" method="post" class="form-inline">
+                                            {% csrf_token %}
+                                            <td>#</td>
+                                            <td>
+                                                <input type="text" class="form-control-sm" name="inputPlateNo" value="">
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <input class="form-control" type='date' name='inputExpiryDate' value="{{expiryDate}}">
+                                            </td>
+                                            <td>New</td>
+                                            <td>
+                                                <button type="submit " class="btn btn-primary btn-sm ">Add</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!--  Created At -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Created At</strong>
+                        </td>
+                        <td>{{all.createdAt}}</td>
+                    </tr>
+                    <!--  Last Updated At -->
+                    <tr>
+                        <td scope="col">
+                            <strong>Last Updated At</strong>
+                        </td>
+                        <td>{{all.updatedAt}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <hr>
+</div>
+<br>
+<br>
+
+</html>

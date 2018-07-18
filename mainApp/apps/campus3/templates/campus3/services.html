@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 3 (AdminManagement)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">
+                <h2>College Compus Service 3 - Admin Management</h2>
+            </a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus3/admin" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus3/system" role="button">System</a>
+            <a class="btn btn-outline-dark" href="/campus3/logout" role="button">Logout</a>
+        </p>
+
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div class="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+    <!-- User Menu -->
+    <div class="main">
+        <h3>User Summary:</h3>
+        <table class="table-striped table-sm w-100">
+            <tr>
+                <td scope="col">
+                    <strong>Item</strong>
+                </td>
+                <td scope="col">
+                    <Strong>Description</Strong>
+                </td>
+            </tr>
+            {% for all in allPersons %}
+            <!-- No -->
+            <tr>
+                <td>
+                    <strong>No</strong>
+                </td>
+                <td>{{all.id}}</td>
+            </tr>
+            <!-- Campus ID -->
+            <tr>
+                <td>
+                    <strong>Campus ID</strong>
+                </td>
+                <td>{{all.campusID}}</td>
+            </tr>
+            <!-- Name -->
+            <tr>
+                <td>
+                    <strong>Name</strong>
+                </td>
+                <td class="text-capitalize">{{all.firstName}} {{all.lastName}}</td>
+            </tr>
+            <!-- Date of Birth -->
+            <tr>
+                <td>
+                    <strong>Date of Birth</strong>
+                </td>
+                <td>{{all.dateBirth|date:"l M d, Y"}} ({{age}} years old)</td>
+            </tr>
+            <!-- College Email Address -->
+            <tr>
+                <td>
+                    <strong>College Email Address</strong>
+                </td>
+                <td class="text-lowercase">{{all.collegeEmail}}</td>
+            </tr>
+            <!-- Update Phone -->
+            <form action="/campus3/updatePhone/{{all.id}}" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <strong>Phone</strong>
+                    </td>
+                    <td>
+                        <input class="form-control-sm" type='text' name='inputUpdatePhone' value={{all.phone}}>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                    </td>
+                </tr>
+            </form>
+            <!-- Update Ext Number -->
+            <form action="/campus3/updateExtNum/{{all.id}}" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <strong>Office Extension Number</strong>
+                    </td>
+                    <td>
+                        <input class="form-control-sm" type='text' name='inputUpdateExtNum' value={{all.extNum}}>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                    </td>
+                </tr>
+            </form>
+            <!-- Update Personal Email -->
+            <form action="/campus3/updatePersonEmail/{{all.id}}" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <strong>Personal Email Address</strong>
+                    </td>
+                    <td>
+                        <input class="form-control-sm" type='text' name='inputUpdatePersonEmail' value={{all.personEmail}}>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                    </td>
+                </tr>
+            </form>
+            <!-- User Group -->
+            <tr>
+                <td>
+                    <strong>Group</strong>
+                </td>
+                <td>
+                    <table class="table-sm w-100">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Group Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of all user group of the user -->
+                            {% for allType in all.personGroupID.all %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{allType.userType_ID.nameType|title}}</td>
+                                <td>
+                                    {% if forloop.counter0 == 0 %} Default {% else %} Valid {% endif %}
+                                </td>
+                                <td>
+                                    {%if forloop.counter0 > 0%}
+                                    <a class="btn btn-danger btn-sm" href="/campus3/deleteGroup/{{all.id}}/{{allType.id}}" role="button">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <!-- Add List of User Group -->
+                            <tr>
+                                {% if allUserType %}
+                                <form action="/campus3/addUserGroup/{{all.id}}" method="post" class="form-inline">
+                                    {% csrf_token %}
+                                    <td>#</td>
+                                    <td>
+                                        <!-- List All User Type -->
+                                        <select name="inputUserType">
+                                            <option class="dropdown-item" value="0" selected>&nbsp;</option>
+                                            {% for subAllType in allUserType %}
+                                            <option class="dropdown-item" value={{subAllType.id}}>&nbsp;{{subAllType.nameType|title}}&nbsp;</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>New</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                    </td>
+                                </form>
+                                {% endif %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <!-- Meal Plan -->
+            <tr>
+                <td>
+                    <strong>Meal Plans</strong>
+                </td>
+                <td>
+                    <table class="table-sm w-100">
+                        {% if allMealCards %}
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Meal Plan</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of all meal plan of the user-->
+                            {% for allMeal in allMealPlans %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{allMeal.ID_mealType.CardType|title}} (${{allMeal.ID_mealType.CardAmt|floatformat:2}})</td>
+                                <td>Valid</td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href="/campus3/deleteMeal/{{all.id}}/{{allMeal.id}}" role="button">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td>Total Amount is ${{amt|floatformat:2}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- Add List of meal plan -->
+                            <tr>
+
+                                <form action="/campus3/addMeal/{{all.id}}" method="post" class="form-inline">
+                                    {% csrf_token %}
+                                    <td>#</td>
+                                    <td>
+                                        <select name="inputMealCard">
+                                            <option class="dropdown-item" value="0" selected>&nbsp;</option>
+                                            {% for subAllMeal in allMealCards %}
+                                            <option class="dropdown-item" value={{subAllMeal.id}}>&nbsp;{{subAllMeal.CardType|title}} (${{subAllMeal.CardAmt|floatformat:2}})&nbsp;</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>New</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </table>
+                </td>
+            </tr>
+            <!-- Building -->
+            <tr>
+                <td>
+                    <strong>Building</strong>
+                </td>
+                <td>
+                    <table class="table-sm w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Building Name</th>
+                                <th scope="col">Office Room No</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of all building of the user -->
+                            {% for allBuild in allBuilding%}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{allBuild.buildingName|title}}</td>
+                                <td>{{allBuild.officeRoom|title}}</td>
+                                <td>
+                                    {% if forloop.counter0 == 0 %} Default {% else %} Valid {% endif %}
+                                </td>
+                                <td>
+                                    {% if forloop.counter0 > 0 %}
+                                    <a class="btn btn-danger btn-sm" href="/campus3/deleteBuilding/{{all.id}}/{{allBuild.id}}" role="button">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <!-- Add building info of the user -->
+                            <tr>
+                                <form action="/campus3/addBuilding/{{all.id}}" method="post" class="form-inline">
+                                    {% csrf_token %}
+                                    <td>#</td>
+                                    <td>
+                                        <input type="text" class="form-control-sm" name="inputBuilding" value="">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control-sm" name="inputOffice" value="">
+                                    </td>
+                                    <td>New</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <!-- Parking Permit -->
+            <tr>
+                <td>
+                    <strong>Parking Permit</strong>
+                </td>
+                <td>
+                    <table class="table-sm w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Vehicle Plate No</th>
+                                <th scope="col">Parking Permit No</th>
+                                <th scope="col">Expiration Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of all parking permit of the user -->
+                            {% for allCar in allParking %}
+                            <tr>
+                                {% if allCar.dateExpiry > tomorrow %}
+                                <!-- Valid parking permit -->
+                                <span class="text-success">
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        <span class="text-uppercase ">{{allCar.plateNo}}</span>
+                                    </td>
+                                    <td>{{allCar.permitNo}}</td>
+                                    <td>
+                                        <span class="text-success">{{allCar.dateExpiry}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-success">Valid</span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" href="/campus3/deleteParking/{{all.id}}/{{allCar.id}}" role="button">Delete</a>
+                                    </td>
+                                </span> {% else %}
+                                <!-- Expired parking permit -->
+                                <span class="text-danger">
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        <span class="text-uppercase ">{{allCar.plateNo}}</span>
+                                    </td>
+                                    <td>{{allCar.permitNo}}</td>
+                                    <td>
+                                        <span class="text-danger">{{allCar.dateExpiry}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-danger">Expired</span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" href="/campus3/deleteParking/{{all.id}}/{{allCar.id}}" role="button">Delete</a>
+                                    </td>
+                                </span>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            <!-- Add parking permit to the user -->
+                            <tr>
+                                <form action="/campus3/addParking/{{all.id}}" method="post" class="form-inline">
+                                    {% csrf_token %}
+                                    <td>#</td>
+                                    <td>
+                                        <input type="text" class="form-control-sm" name="inputPlateNo" value="">
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input class="form-control" type='date' name='inputExpiryDate' value="{{expiryDate}}">
+                                    </td>
+                                    <td>New</td>
+                                    <td>
+                                        <button type="submit " class="btn btn-primary btn-sm ">Add</button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <!-- Created At -->
+            <tr>
+                <td>
+                    <strong>Created At</strong>
+                </td>
+                <td>{{all.createdAt}}</td>
+            </tr>
+            <!-- Last Updated At -->
+            <tr>
+                <td>
+                    <strong>Last Updated At</strong>
+                </td>
+                <td>{{all.updatedAt}}</td>
+            </tr>
+            <!-- Delete current user  -->
+            <tr>
+                <td></td>
+                <td>
+                    <br>
+                    <form action="/campus3/destory/{{all.id}}" method="post" class="text-center">
+                        {% csrf_token %} {% if all.id == currentID %}
+                        <button type="submit " class="btn btn-danger btn-sm ">Delete your OWN record will logoff from the system!</button>
+                        {% else %}
+                        <button type="submit " class="btn btn-danger btn-sm ">Delete this record!</button>
+                        {% endif %}
+                    </form>
+                </td>
+                <br>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+</div>
+<br>
+<br>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{name}}</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<!-- # -->
+<!-- # Codes start here ... Chia Tham -->
+
+<div class="container">
+    <div>
+        <br>
+        <h1>Welcome to College Campus Service 3</h1>
+        <hr>
+        <br>
+    </div>
+
+    <!-- Flash Error Messages -->
+    <div>
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+
+    <!-- Left Column - Registration Form -->
+    <div class="row">
+        <div class="col">
+            <fieldset>
+                <legend>
+                    <h3>Register with your personal email address and password.</h3>
+                </legend>
+                <form action="/campus3/regUser" method="post">
+                    {% csrf_token %}
+                    <!-- User Type DropDown Menu -->
+                    {% if allUserType %}
+                    <div class="form-group">
+                        <label for="inputUserType">User Group:</label>
+                        <!-- List All User Type -->
+                        <select name="inputUserType">
+                            <option class="dropdown-item " value="0" selected>&nbsp;</option>
+                            {% for all in allUserType %}
+                            <option class="dropdown-item" value={{all.id}}>&nbsp;{{all.nameType}}&nbsp;</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="inputFirstName">First Name:</label>
+                        <input class="form-control" type='text' name='inputFirstName'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLastName">Last Name:</label>
+                        <input class="form-control" type='text' name='inputLastName'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDateBirth">Date of birth:</label>
+                        <input class="form-control" type='date' name='inputDateBirth'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Home Address:</label>
+                        <input class="form-control" type='text' name='inputAddress'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone">Personal Phone Number: (999-999-9999)</label>
+                        <input class="form-control" type='text' name='inputPhone'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputExtNum">Office Extension Number: (9999)</label>
+                        <input class="form-control" type='text' name='inputExtNum'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBuilding">Building Name:</label>
+                        <input class="form-control" type="text" name="inputBuilding">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOffice">Office Room No:</label>
+                        <input class="form-control" type="text" name="inputOffice">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPersonEmail">Personal Email Address:</label>
+                        <input class="form-control" type='text' name='inputPersonEmail'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword1">Password:</label>
+                        <input class="form-control" type='password' name='inputPassword1'>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword2">Confirm Password:</label>
+                        <input class="form-control" type='password' name='inputPassword2'>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+
+        <!-- Right column - Sign In Form -->
+        <div class="col">
+            <fieldset>
+                <legend>
+                    <h3>Sign in with your college email address and password.</h3>
+                </legend>
+                <form action="/campus3/login" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label for="inputUserType">College Email Address:</label>
+                        <select name="inputCollegeEmail">
+                            <option class="dropdown-item " value="0" selected>&nbsp;</option>
+                            {% for all in allEmail %}
+                            <option class="dropdown-item" value={{all.collegeEmail}}>&nbsp;{{all.collegeEmail}}&nbsp;</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="inputCollegeEmail">College Email Address:</label>
+                        <input class="form-control" type='text' name='inputCollegeEmail'>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="inputPassword">Password:</label>
+                        <input class="form-control" type='password' name='inputPassword'>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+
+</div>
+<hr>
+<br>
+<br>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 3 (Hacking)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">
+                <h2>College Campus Service 3 - Hacking</h2>
+            </a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus3/admin" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus3/system" role="button">System</a>
+            <a class="btn btn-outline-dark" href="/campus3/logout" role="button">Logout</a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div class="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+
+    <!-- All User Menu -->
+    <div class="main">
+        <div class="card-body text-center">
+            <h3 class="text-danger">Warning:</h3>
+            <br>
+            <span>Dear {{personInfo.firstName|title}} ({{personInfo.collegeEmail}}),</span>
+            <br>
+            <br>
+            <div>
+                {% if adminRight == 'True' %}
+                <form action="/campus3/hacking/{{personInfo.id}}" method="post">
+                    {% csrf_token %}
+                    <span class="card-text">You are going to remove your admin right from your account.</span>
+                    <br>
+                    <span class="card-text">You will be logoff after successful removed. Do you want to continue?</span>
+                    <br>
+                    <br>
+                    <span class="card-text">(ps, you are able to add your admin right back to your account by returning to this page!)</span>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-danger btn-sm ">Downgrade</button>
+                    &nbsp;
+                    <a class="btn btn-primary btn-sm" href="/campus3/admin" role="button">Cancel</a>
+                </form>
+                {% else %}
+                <form action="/campus3/hacking/{{personInfo.id}}" method="post">
+                    {% csrf_token %}
+                    <span class="card-text">You are going to add admin right to your account.</span>
+                    <br>
+                    <span class="card-text">You will be logoff after successful added. Do you want to continue?</span>
+                    <br>
+                    <br>
+                    <span class="card-text">(ps, you are able to remove your admin right from your account by returning to this page!)</span>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-danger btn-sm ">Upgrade</button>
+                    &nbsp;
+                    <a class="btn btn-primary btn-sm" href="/campus3/admin" role="button">Cancel</a>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 3 (AdminSystem)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">
+                <h2>College Compus Service 3 - Admin System</h2>
+            </a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus3/admin" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus3/logout" role="button">Logout</a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div class="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        <br> {% endif %}
+    </div>
+
+    <!-- User Type menu -->
+    <div class="userType">
+        <fieldset>
+            <h3>List of Campus Group:</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for all1 in allUserType%}
+                    <tr>
+                        <td>{{all1.id}}</td>
+                        <td>{{all1.nameType|title}}</td>
+                        <td>{{all1.createdAt}}</td>
+                        <td>Valid</td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="/campus3/deleteGroupType/{{all1.id}}" role="button">Delete</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                    <form action="/campus3/addUserType" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <tr>
+                            <td>#</td>
+                            <td>
+                                <input type="text" class="form-control-sm" name="inputUserType" value="">
+                            </td>
+                            <td></td>
+                            <td>New</td>
+                            <td>
+                                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <br>
+
+    <!-- Meal Type menu -->
+    <div class="mealType">
+        <fieldset>
+            <h3>List of Meal Card Plan:</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Created At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for all2 in allMealType%}
+                    <tr>
+                        <td>{{all2.id}}</td>
+                        <td>{{all2.CardType|title}}</td>
+                        <td>${{all2.CardAmt|floatformat:2}}</td>
+                        <td>{{all2.createdAt}}</td>
+                        <td>Valid</td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="/campus3/deleteMealType/{{all2.id}}" role="button">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <form action="/campus3/addMealType" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <tr>
+                            <td>#</td>
+                            <td>
+                                <input type="text" class="form-control-sm" name="inputMealType" value="">
+                            </td>
+                            <td>
+                                $
+                                <input type="text" class="form-control-sm" name="inputMealAmt" value="">
+                            </td>
+                            <td></td>
+                            <td>New</td>
+                            <td>
+                                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+
+</html>

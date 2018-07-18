@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 3 (AdminDashboard)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap4/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">
+                <h2>College Campus Service 3 - Admin Dashboard</h2>
+            </a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-danger" href="/campus3/hack/{{currentID}}" role="button">HACK</a>
+            <a class="btn btn-outline-dark" href="/campus3/system" role="button">System</a>
+            <a class="btn btn-outline-dark" href="/campus3/logout" role="button">Logout</a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div class="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+
+    <!-- All User Menu -->
+    <div class="main">
+        <div>
+            <h5>Welcome {{personInfo.firstName|title}} ({{personInfo.collegeEmail}})!</h5>
+        </div>
+        <br>
+        <fieldset>
+            <h3>List of users information:</h3>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Campus ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Personal Email</th>
+                        <th>College Email</th>
+                        <th>Admin</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for all in allPersons %}
+                    <tr> {% if all.id == personInfo.id %}
+                        <td class='text-danger'>{{all.id}}</td>
+                        <td class='text-danger'>{{all.campusID}}</td>
+                        <td class='text-danger'>{{all.firstName|title}} {{all.lastName|title}}</td>
+                        <td class='text-danger'>{{all.phone}}</td>
+                        <td class='text-danger'>{{all.personEmail|lower}}</td>
+                        <td class='text-danger'>{{all.collegeEmail|lower}}</td>
+                        {% else %}
+                        <td>{{all.id}}</td>
+                        <td>{{all.campusID}}</td>
+                        <td>{{all.firstName|title}} {{all.lastName|title}}</td>
+                        <td>{{all.phone}}</td>
+                        <td>{{all.personEmail|lower}}</td>
+                        <td>{{all.collegeEmail|lower}}</td>
+                        {% endif %}
+                        <td>
+                            {% if all.adminRight %}
+                            <span class="text-danger">Yes</span>
+                            {% else %}
+                            <span>No</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-sm" href="/campus3/user/{{all.id}}" role="button">Info</a>
+                            <a class="btn btn-primary btn-sm" href="/campus3/services/{{all.id}}" role="button">Manage</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+
+</html>

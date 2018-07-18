@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 2 (User Details)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">College Campus Service 2 - User Details</a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus2/dashboard" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus2/system" role="button">Admin</a>
+            <a class="btn btn-outline-dark" href="/campus2/logout" role="button">Logout</a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div id="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+    <!-- User Menu -->
+    <div id="main">
+        <fieldset>
+            <h3>User Details:</h3>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <td class="col-md-6">
+                        <strong>Item</strong>
+                    </td>
+                    <td class="col-md-6">
+                        <Strong>Description</Strong>
+                    </td>
+                </tr>
+                {% for all in allPersons %}
+                <tr>
+                    <td>
+                        <strong>No</strong>
+                    </td>
+                    <td>{{all.id}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Campus ID</strong>
+                    </td>
+                    <td>{{all.campusID}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Name</strong>
+                    </td>
+                    <td>{{all.firstName}} {{all.lastName}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Date of Birth</strong>
+                    </td>
+                    <td>{{all.dateBirth|date:"l M d, Y"}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Age</strong>
+                    </td>
+                    <td>{{age}} years old</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Phone</strong>
+                    </td>
+                    <td>{{all.phone}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Office Extension Number</strong>
+                    </td>
+                    <td>{{all.extNum}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Personal Email Address</strong>
+                    </td>
+                    <td>{{all.personEmail}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>College Email Address</strong>
+                    </td>
+                    <td>{{all.collegeEmail}}</td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Group Type</strong>
+                    </td>
+                    <td>
+                        {% for allType in all.personGroupID.all %}
+                        <li>
+                            {{allType.userType_ID.nameType}}
+                            <!-- {% if forloop.counter0 > 0 and allType.person_ID.id == currentID%} -->
+                            <!-- {{allType.person_ID.id }}/ -->
+                            <!-- {{currentID}} -->
+                            <!-- <a class="btn btn-danger btn-sm" href="#" role="button">Delete this record</a> -->
+                            <!-- {% endif %} -->
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Meal Plans</strong>
+                    </td>
+                    <td>
+                        {% for allMeal in allMeanPlans %}
+                        <li>
+                            {{allMeal.ID_mealType.CardType}} (${{allMeal.ID_mealType.CardAmt}})
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Building and Room</strong>
+                    </td>
+                    <td>
+                        {% for allBuilding in all.personBuildingID.all %}
+                        <li>
+                            {{allBuilding.buildingName}}, {{allBuilding.officeRoom}}
+                            <!-- {%if forloop.counter0 > 0 and allBuilding.ID_building.id == currentID%} -->
+                            <!-- {{allBuilding.ID_building.id}} / {{currentID}} -->
+                            <!-- <a class="btn btn-danger btn-sm" href="#" role="button">Delete this record</a> -->
+                            <!-- {% endif %} -->
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Vehicle Plate No and Parking Permit No</strong>
+                    </td>
+                    <td>
+                        {% for allCar in allParking%}
+                        <li>
+                            {{allCar.plateNo}} / Permit No: {{allCar.permitNo}}
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Created At</strong>
+                    </td>
+                    <td>{{all.createdAt}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Last Updated At</strong>
+                    </td>
+                    <td>{{all.updatedAt}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </fieldset>
+    </div>
+    <br>
+</div>
+
+</html>

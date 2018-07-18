@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 2 (Dashboard)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">College Campus Service 2 - Dashboard</a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus2/dashboard" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus2/system" role="button">Admin</a>
+            <a class="btn btn-outline-dark" href="/campus2/logout" role="button">Logout</a>
+        </p>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div id="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+    <!-- All User Menu -->
+    <div id="main">
+        <fieldset>
+            <h3>List of users information:</h3>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>No</th>
+                    <th>Campus ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Ext No</th>
+                    <th>Personal Email Address</th>
+                    <th>College Email Address</th>
+                    <!-- <th>Created At</th> -->
+                    <!-- <th>Updated At</th> -->
+                    <th>Action</th>
+                </tr>
+                {% for all in allPersons %}
+
+                <tr>
+                    <td>{{all.id}}</td>
+                    <td>{{all.campusID}}</td>
+                    <td>{{all.firstName}} {{all.lastName}}</td>
+                    <td>{{all.phone}}</td>
+                    <td>{{all.extNum}}</td>
+                    <td>{{all.personEmail}}</td>
+                    <td>{{all.collegeEmail}}</td>
+                    <!-- <td>{{all.createdAt}}</td> -->
+                    <!-- <td>{{all.updatedAt}}</td> -->
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/campus2/user/{{all.id}}" role="button">Details</a>
+                        {% if all.id == id %}
+                        <a class="btn btn-primary btn-sm" href="/campus2/services/{{all.id}}" role="button">Services</a>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </fieldset>
+    </div>
+</div>
+
+</html>

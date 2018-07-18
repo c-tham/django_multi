@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>College Compus Service 2 (Services)</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel='stylesheet' href='{% static "bootstrap/css/bootstrap.css" %}' media='screen' title='no title' charset='utf-8'>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <!-- Put the static files in the static folder inside your app. -->
+    <!-- Django collects files within all static folders and puts them within a single folder -->
+</head>
+
+<nav class="navbar navbar-default navbar-static-top ">
+    <!-- Navigation Bar -->
+    <div class="container">
+        <div class="navbar-text ">
+            <a class="navbar-brand ">College Campus Service 2 - Services</a>
+        </div>
+        <p class="navbar-text navbar-right">
+            <a class="btn btn-outline-dark" href="/campus2/dashboard" role="button">Home</a>
+            <a class="btn btn-outline-dark" href="/campus2/system" role="button">Admin</a>
+            <a class="btn btn-outline-dark" href="/campus2/logout" role="button">Logout</a>
+        </p>
+
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Flash Error Messages -->
+    <div id="flash_messages">
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages|dictsort:"tags" %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+    </div>
+    <!-- User Menu -->
+    <div id="main">
+        <fieldset>
+            <h3>User Summary:</h3>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <td class="col-md-6">
+                        <strong>Item</strong>
+                    </td>
+                    <td class="col-md-6">
+                        <Strong>Description</Strong>
+                    </td>
+                </tr>
+                {% for all in allPersons %}
+                <tr>
+                    <td>
+                        <strong>No</strong>
+                    </td>
+                    <td>{{all.id}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Campus ID</strong>
+                    </td>
+                    <td>{{all.campusID}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Name</strong>
+                    </td>
+                    <td>{{all.firstName}} {{all.lastName}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>College Email Address</strong>
+                    </td>
+                    <td>{{all.collegeEmail}}</td>
+                </tr>
+                <!--  -->
+                <form action="/campus2/updatePhone/{{all.id}}" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <strong>Phone</strong>
+                        </td>
+                        <td>
+                            <input class="form-control-sm" type='text' name='inputUpdatePhone' value={{all.phone}}>
+                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        </td>
+                    </tr>
+                </form>
+                <!--  -->
+                <form action="/campus2/updateExtNum/{{all.id}}" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <strong>Office Extension Number</strong>
+                        </td>
+                        <td>
+                            <input class="form-control-sm" type='text' name='inputUpdateExtNum' value={{all.extNum}}>
+                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        </td>
+                    </tr>
+                </form>
+                <!--  -->
+                <form action="/campus2/updatePersonEmail/{{all.id}}" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <strong>Personal Email Address</strong>
+                        </td>
+                        <td>
+                            <input class="form-control-sm" type='text' name='inputUpdatePersonEmail' value={{all.personEmail}}>
+                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        </td>
+                    </tr>
+                </form>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Group Type</strong>
+                    </td>
+                    <td>
+                        {% for allType in all.personGroupID.all %}
+                        <li>
+                            {{allType.userType_ID.nameType}} {%if forloop.counter0 > 0%}
+                            <a class="btn btn-danger btn-sm" href="/campus2/deleteGroup/{{id}}/{{allType.id}}" role="button">Delete this record</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Meal Plans</strong>
+                    </td>
+                    <td>
+                        {% for allMeal in allMeanPlans %}
+                        <li>
+                            {{allMeal.ID_mealType.CardType}} (${{allMeal.ID_mealType.CardAmt}})
+                            <a class="btn btn-danger btn-sm" href="/campus2/deleteMeal/{{id}}/{{allMeal.id}}" role="button">Delete this record</a>
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Building and Office Room</strong>
+                    </td>
+                    <td>
+                        {% for allBuild in allBuilding%}
+                        <li>
+                            {{allBuild.buildingName}}, {{allBuild.officeRoom}} {% if forloop.counter0 > 0 %}
+                            <a class="btn btn-danger btn-sm" href="/campus2/deleteBuilding/{{id}}/{{allBuild.id}}" role="button">Delete this record</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>
+                        <strong>Vehicle Plate No and Parking Permit No</strong>
+                    </td>
+                    <td>
+                        {% for allCar in allParking%}
+                        <li>
+                            {{allCar.plateNo}} / Permit No: {{allCar.permitNo}}
+                            <a class="btn btn-danger btn-sm" href="/campus2/deleteParking/{{id}}/{{allCar.id}}" role="button">Delete this record</a>
+                        </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </fieldset>
+    </div>
+    <hr>
+    <!-- UserGroup -->
+    <div>
+        <fieldset>
+            <h3>Add User Group:</h3>
+            <form action="/campus2/addUserGroup/{{id}}" method="post" class="form-inline">
+                {% csrf_token %}
+                <!-- User Type DropDown Menu -->
+                <div class="form-group">
+                    <label for="inputUserType">User Group:</label>
+                    <!-- List All User Type -->
+                    <select name="inputUserType">
+                        <option class="dropdown-item" value="0" selected>&nbsp;</option>
+                        {% for all in allUserType %}
+                        <option class="dropdown-item" value={{all.id}}>&nbsp;{{all.nameType}}&nbsp;</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+        </fieldset>
+    </div>
+    <hr>
+    <!-- Meal Card -->
+    <div>
+        <fieldset>
+            <h3>Add Meal Card:</h3>
+            <form action="/campus2/addMeal/{{id}}" method="post" class="form-inline">
+                {% csrf_token %}
+                <!-- User Type DropDown Menu -->
+                <div class="form-group">
+                    <label for="inputMealCard">Meal Card:</label>
+                    <!-- List All User Type -->
+                    <select name="inputMealCard">
+                        <option class="dropdown-item" value="0" selected>&nbsp;</option>
+                        {% for all in allMealCards %}
+                        <option class="dropdown-item" value={{all.id}}>&nbsp;{{all.CardType}} (${{all.CardAmt}})&nbsp;</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+        </fieldset>
+    </div>
+    <hr>
+    <!-- Building  -->
+    <div>
+        <fieldset>
+            <h3>Add Building and Office:</h3>
+            <form action="/campus2/addBuilding/{{id}}" method="post" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputBuilding">Building Name:</label>
+                    <input type="text" class="form-control-sm" name="inputBuilding" value="">
+                </div>
+                <div class="form-group">
+                    <label for="inputOffice">Office Room No:</label>
+                    <input type="text" class="form-control-sm" name="inputOffice" value="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+        </fieldset>
+    </div>
+    <hr>
+    <!-- Parking Permit  -->
+    <div>
+        <fieldset>
+            <h3>Add Parking Permit:</h3>
+            <form action="/campus2/addParking/{{id}}" method="post" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputPlateNo">Vehicle Plate No:</label>
+                    <input type="text" class="form-control-sm" name="inputPlateNo" value="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+        </fieldset>
+    </div>
+    <hr>
+</div>
+<br>
+<br>
+
+</html>
