@@ -3,34 +3,177 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iotree @ AWS</title>
     {% load static %}
     <!-- The line above tells Django to be ready to listen for static files -->
-    <link rel='stylesheet' href='{% static ' IndexSite/css/styles.css ' %}' media='screen' title='no title' charset='utf-8'>
+    <link rel='stylesheet' href="{% static 'IndexSite/css/w3.css' %}" media='screen' title='no title' charset='utf-8'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Put the static files in the static folder inside your app. -->
     <!-- Django collects files within all static folders and puts them within a single folder -->
 </head>
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: sans-serif
+    }
+</style>
 
-<body>
-    <h1>Welcome</h1>
-    <ol>
-        <li>
-            <a href="/campus3" target="_blank">Project - Campus 3</a>
-        </li>
-        <ul>
-            <li>Completion Date - In the week of July 4th, 2018 (Independence Day)</li>
-        </ul>
-        <li>
-            <a href="/campus2" target="_blank">Project - Campus 2</a>
-        </li>
-        <ul>
-            <li>Completion Date - In the weekend of May 28, 2018 (Memorial Day)</li>
-        </ul>
-    </ol>
-    <div>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScPfw_wD1wgqZEaZa74dBWUXAeZC0rRt41ix0DrTy4PkdTE_A/viewform?embedded=true"
-            width="100%" height="1800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+<body class="w3-light-grey">
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- Left Column -->
+            <div class="w3-third">
+
+                <div class="w3-white w3-text-grey w3-card-4">
+                    <div class="w3-display-container">
+                        <img src="{% static 'IndexSite/pic/me.png' %}" style="width:100%" alt="Avatar">
+                        <div class="w3-display-bottomleft w3-container w3-text-white">
+                            <h2>Chia Tham</h2>
+                        </div>
+                    </div>
+                    <div class="w3-container">
+                        <p>
+                            <i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Developer</p>
+                        <p>
+                            <i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Oklahoma, USA</p>
+                        <p>
+                            <i class="fa fa-linkedin fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                            <a href="https://www.linkedin.com/in/chiaweitham/">https://www.linkedin.com/in/chiaweitham/</a>
+                        </p>
+                        <p>
+                            <i class="fa fa-github fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                            <a href="https://github.com/c-tham">https://github.com/c-tham</a>
+                        </p>
+                        <hr>
+
+                        <p class="w3-large">
+                            <b>
+                                <i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b>
+                        </p>
+                        <p>Python (Python, MySQL, Flask, Ajax, APIs, Django)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <p>MEAN (MangoDB, Express, Angular, JS, NPM, Socket.IO)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:60%">60%</div>
+                        </div>
+                        <p>Oracle (PL/SQL, SAP Crystal Report, Unix Shell Script)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <p>MainFrame (Cobol, JCL, Xpediter, File-Aid)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <p>Microsoft (Office, Access, Project, Visio, Publisher)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <p>Web (HTML, CSS, PHP)</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <hr>
+
+                        <p class="w3-large w3-text-theme">
+                            <b>
+                                <i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b>
+                        </p>
+                        <p>English / Mandarin / Cantonese</p>
+                        <div class="w3-light-grey w3-round-xlarge w3-small">
+                            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <br>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-twothird">
+
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Welcome ...</h2>
+                    <div class="w3-container">
+                        <h5 class="w3-opacity">
+                            <b>Front End Developer / w3schools.com</b>
+                        </h5>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 -
+                            <span class="w3-tag w3-teal w3-round">Current</span>
+                        </h6>
+                        <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit
+                            sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - Campus 3</h2>
+                    <div class="w3-container">
+                        <h5 class="w3-opacity">
+                            <b>http://aws.iotree.com/campus3</b>
+                        </h5>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>In the week of July 4th, 2018 (Independence Day)
+                            <span class="w3-tag w3-teal w3-round">Latest</span>
+                        </h6>
+                        <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit
+                            sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - Campus 2</h2>
+                    <div class="w3-container">
+                        <h5 class="w3-opacity">
+                            <b>http://aws.iotree.com/campus2</b>
+                        </h5>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>In the weekend of May 28, 2018 (Memorial Day)</h6>
+                        <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit
+                            sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white">
+                    <br>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScPfw_wD1wgqZEaZa74dBWUXAeZC0rRt41ix0DrTy4PkdTE_A/viewform?embedded=true"
+                        width="100%" height="1800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                </div>
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
     </div>
+
+    <footer class="w3-container w3-teal w3-center w3-margin-top">
+        <p>iotree.com
+            <i class="fa fa-copyright" aria-hidden="true"></i>
+            2018
+        </p>
+    </footer>
+
 </body>
 
 </html>
