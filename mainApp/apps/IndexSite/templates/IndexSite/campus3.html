@@ -223,63 +223,69 @@
 
                 <div class="w3-container w3-card w3-white w3-margin-bottom">
                     <h2 class="w3-text-grey w3-padding-16">
-                        <i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>About me</h2>
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - The Master of Campus Tracking Services System</h2>
                     <div class="w3-container">
-                        <!-- <h5 class="w3-opacity">
-                            <b>About me</b>
-                        </h5> -->
-                        <p>I am a detail and data oriented Web Developer with a background in IT Program Management and Retention
-                            Data Management. I recently completed a Full Stack Development Program where I spent 30 hours
-                            a week learning JavaScript, HTML, CSS, Python and MEAN. My most proud accomplishment is redesigning
-                            the voucher solution during my time at MVNO, with a cost saving of $187K on the project. I implemented
-                            VMware iESX for the test environments with a cost saving of $35K. I am also a developer who developed
-                            business reports using SAP Crystal reports, PL/SQL, and unix shell scripts. Moving forward, I
-                            am looking for a role where I can combine my passion for development with my background in data
-                            integration to make an impact at an organization and the tech community at large.
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-link fa-fw w3-margin-right"></i>
+                            <a href="http://aws.iotree.com/campus3" target="_blank">
+                                aws.iotree.com/campus3
+                                <span class="w3-tag w3-teal w3-round">TryMe</span>
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-github fa-fw w3-margin-right"></i>
+                            <a href="https://github.com/c-tham/django_CampusService3" target="_blank">
+                                github.com/c-tham/django_CampusService3
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-code fa-fw w3-margin-right"></i> 2687 lines of code (HTML: 1534 lines, Python: 1153 lines)</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-css3 fa-fw w3-margin-right"></i> Bootstrap 4</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i> Development: June 30 to July 7, 2018
+                        </h6>
+                        <p>The Master Campus (aka Campus 3) is an upgrade of the Original Campus (aka Campus 2). The application
+                            tracks a persons use of services like building and office acccess, meal cards, and parking permits.
+                            It also keeps track of addresses, phone numbers, emails, and office extension numbers.
                         </p>
-                        <br>
+                        <p>
+                            When a person registers to the system, it will generate a college email address. The college email address will be the main
+                            login information. The password is stored using bcrypt which it's generating a salt to protect
+                            against rainbow table attacks.
+                        </p>
+                        <p>
+                            The main design of this application is to be able to have multiple applications on one Django. I also add a lot of new features
+                            into the program. For example, it will turn red when parking permits are expired, and green when
+                            they are still valid.
+                        </p>
+                        <p>One of the major bugs for the Original Campus is when database initialize for the first time, the
+                            system will be crash when it start running. This is because it is missing values in the database.
+                            The only way to resolve the problem is to insert the values into the database manually.
+                        </p>
+                        <p>This application have resolved this problem by initializing the values when the values are not found
+                            in the database. Moreover, it allows users to delete records (primary and foreign tables). I
+                            have included a hack button to allow users to add and remove admin rights.
+                        </p>
+                        <p>Please feel free to try out my applications. Please share your thoughts by giving feedback on the
+                            form at the top right of menu bar. If you found a bug, please do not hesitate to let me know.
+                        </p>
+                        <p>Please use fake information when you registrate to the system. Thanks!</p>
                     </div>
                 </div>
 
-                <div class="w3-container w3-card w3-white w3-margin-bottom">
-                    <h2 class="w3-text-grey w3-padding-16">
-                        <i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>My Projects</h2>
-                    <div class="w3-container">
-                        <p>This is a Django system that supporting multiple applications with their own code including HTML,
-                            CSS, python codes, framework and databases.</p>
-                        <p>This main application is running its own CSS, the W3.CSS and no database. The second application,
-                            the Original Campus (aka Campus 2), is running Bootstrap 3 CSS with its own database. The third
-                            application, the Master Campus (aka Campus 3), is running Bootstrap 4 CSS with its own database.
-                            All the database are running independent with its own tables and structures.</p>
-                        <p>Please feel free to try out all my applications. You can find all my applications on the top right
-                            of menu bar. Please share your thoughts by giving feedback on the form below or on the top right
-                            of menu bar. If you found a bug, please do not hesitate to let me know.
-                        </p>
-                        <p>Thank you!</p>
-                    </div>
-                </div>
-
-                <div class="w3-container w3-card w3-white">
-                    <br>
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScPfw_wD1wgqZEaZa74dBWUXAeZC0rRt41ix0DrTy4PkdTE_A/viewform?embedded=true"
-                        width="100%" height="2000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-                    <br>
-                </div>
-                <!-- End Right Column -->
+                <!-- End Grid -->
             </div>
 
-            <!-- End Grid -->
+            <!-- End Page Container -->
         </div>
 
-        <!-- End Page Container -->
-    </div>
-
-    <footer class="w3-container w3-teal w3-center w3-margin-top">
-        <p>iotree.com
-            <i class="fa fa-copyright" aria-hidden="true"></i>
-            2018
-        </p>
-    </footer>
+        <footer class="w3-container w3-teal w3-center w3-margin-top">
+            <p>iotree.com
+                <i class="fa fa-copyright" aria-hidden="true"></i>
+                2018
+            </p>
+        </footer>
 
 </body>
 

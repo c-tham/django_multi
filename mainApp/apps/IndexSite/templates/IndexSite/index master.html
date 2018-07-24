@@ -33,16 +33,10 @@
         <div class="w3-row-padding">
 
             <!-- Menu Bar -->
-            <div class="w3-bar w3-border w3-white">
-                <a href="/" class="w3-bar-item w3-button w3-teal">Home</a>
-                <a href="/feedback" class="w3-bar-item w3-button w3-teal w3-right">Feedback</a>
-                <div class="w3-dropdown-hover w3-teal w3-right">
-                    <button class="w3-button">Applications</button>
-                    <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-teal w3-right">
-                        <a href="/campus3" class="w3-bar-item w3-button">Master Campus</a>
-                        <a href="/campus2" class="w3-bar-item w3-button">Original Campus</a>
-                    </div>
-                </div>
+            <div class="w3-bar w3-border w3-light-grey">
+                <a href="#" class="w3-bar-item w3-button w3-teal">Home</a>
+                <a href="#" class="w3-bar-item w3-button w3-teal w3-right">Feedback</a>
+                <a href="#" class="w3-bar-item w3-button w3-teal w3-right">Projects</a>
             </div>
             <br>
 
@@ -246,24 +240,117 @@
                         <i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>My Projects</h2>
                     <div class="w3-container">
                         <p>This is a Django system that supporting multiple applications with their own code including HTML,
-                            CSS, python codes, framework and databases.</p>
+                            CSS, and databases.</p>
                         <p>This main application is running its own CSS, the W3.CSS and no database. The second application,
-                            the Original Campus (aka Campus 2), is running Bootstrap 3 CSS with its own database. The third
-                            application, the Master Campus (aka Campus 3), is running Bootstrap 4 CSS with its own database.
-                            All the database are running independent with its own tables and structures.</p>
-                        <p>Please feel free to try out all my applications. You can find all my applications on the top right
-                            of menu bar. Please share your thoughts by giving feedback on the form below or on the top right
-                            of menu bar. If you found a bug, please do not hesitate to let me know.
+                            Campus 2, is running Bootstrap 3 CSS with its own database. The third application, the Campus
+                            3, is running Bootstrap 4 CSS with its own database. All the database are running independent
+                            with its own tables and structures.</p>
+                        <p>Please feel free to try out my applications. Please share your thoughts by giving feedback on the
+                            form below. If you found a bug, please do not hesitate to let me know. The feedback form is at
+                            the bottom of the this page.
                         </p>
                         <p>Thank you!</p>
                     </div>
                 </div>
 
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - The Master of Campus Tracking Services System</h2>
+                    <div class="w3-container">
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-link fa-fw w3-margin-right"></i>
+                            <a href="http://aws.iotree.com/campus3" target="_blank">
+                                aws.iotree.com/campus3
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-github fa-fw w3-margin-right"></i>
+                            <a href="https://github.com/c-tham/django_CampusService3" target="_blank">
+                                github.com/c-tham/django_CampusService3
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-code fa-fw w3-margin-right"></i> 2687 lines of code (HTML: 1534 lines, Python: 1153 lines)</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-css3 fa-fw w3-margin-right"></i> Bootstrap 4</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i> Development: June 30 to July 7, 2018
+                            <!-- <span class="w3-tag w3-teal w3-round">Latest</span> -->
+                        </h6>
+                        <p>Campus 3 is an upgrade of Campus 2. The main design is to be able to have multiple applications on
+                            one Django. I also add a lot of new features into the program. For example, it will turn red
+                            when parking permits are expired, and green when they are still valid.</p>
+                        <p>One of the major bugs for Campus 2 is when database initialize for the first time, the system will
+                            be crash when it start running. This is because it is missing values in the database. The only
+                            way to resolve the problem is to insert the values into the database manually.</p>
+                        <p>Campus 3 have resolved this problem by initializing the values when the values are not found in the
+                            database. Moreover, it allows users to delete records. I have included a hack button to allow
+                            users to add and remove admin rights.</p>
+                        <p>Please use fake information when you registrate to the system. Thanks!</p>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - The Original Campus Tracking Services System</h2>
+                    <div class="w3-container">
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-link fa-fw w3-margin-right"></i>
+                            <a href="http://aws.iotree.com/campus2" target="_blank">
+                                aws.iotree.com/campus2
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-github fa-fw w3-margin-right"></i>
+                            <a href="https://github.com/c-tham/django_CampusService2" target="_blank">
+                                github.com/c-tham/django_CampusService2
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-code fa-fw w3-margin-right"></i> 1518 lines of code (HTML: 785 lines, Python: 733 lines)</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-css3 fa-fw w3-margin-right"></i> Bootstrap 3</h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i> Development: May 26 to 28, 2018</h6>
+                        <p>
+                            Campus 2 tracks a persons use of services like building and office acccess, meal cards, and parking permits. It also keeps
+                            track of addresses, phone numbers, emails, and office extension numbers.
+                        </p>
+                        <p>
+                            When a person registers to the system, it will generate a college email address. The college email address will be the main
+                            login information. The password is stored using bcrypt which it's generating a salt to protect
+                            against rainbow table attacks.
+                        </p>
+                        <p>
+                            The system is able to generate unique college ID, unique college email address and unique parking permit ID. I have listed
+                            a college ID (under CheatSheet) in the main page for us to login. You can copy and paste it on
+                            the login field.
+                        </p>
+                        <p>Please use fake information when you registrate to the system. Thanks!</p>
+                    </div>
+                </div>
+
+                <!-- <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16">
+                        <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Project - Campus 1</h2>
+                    <div class="w3-container">
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-github fa-fw w3-margin-right"></i>
+                            <a href="https://github.com/c-tham/django_CampusService" target="_blank">
+                                github.com/c-tham/django_CampusService
+                            </a>
+                        </h6>
+                        <h6 class="w3-text-teal">
+                            <i class="fa fa-calendar fa-fw w3-margin-right"></i> Development: May 25, 2018</h6>
+                        <p>This is my initial campus database design with basic Django application.
+                        </p>
+                    </div>
+                </div> -->
+
                 <div class="w3-container w3-card w3-white">
                     <br>
                     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScPfw_wD1wgqZEaZa74dBWUXAeZC0rRt41ix0DrTy4PkdTE_A/viewform?embedded=true"
                         width="100%" height="2000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-                    <br>
                 </div>
                 <!-- End Right Column -->
             </div>
